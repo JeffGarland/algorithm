@@ -302,4 +302,33 @@ BOOST_CXX14_CONSTEXPR inline Iter base(random_access_iterator<Iter> i) { return 
 template <typename Iter>    // everything else
 BOOST_CXX14_CONSTEXPR inline Iter base(Iter i) { return i; }
 
+template<class Iterator>
+class IteratorSentinel {
+  Iterator itr_;
+public:
+  IteratorSentinel( const Iterator& itr ) :
+    itr_( itr )
+  {};
+
+  bool equal( const Iterator& itr ) const
+  {
+    return itr_ == itr;
+  }
+};
+
+
+template <typename Iterator>
+BOOST_CXX14_CONSTEXPR inline bool
+operator==(const IteratorSentinel<Iterator>& x, const Iterator& y)
+{
+  return x.equal( y );
+}
+
+template <typename Iterator>
+BOOST_CXX14_CONSTEXPR inline bool
+operator!=(const IteratorSentinel<Iterator>& x, const Iterator& y)
+{
+    return !(x == y);
+}
+
 #endif  // ITERATORS_H

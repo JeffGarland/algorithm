@@ -20,23 +20,23 @@
 
 namespace ba = boost::algorithm;
 
-template <class Iter, class T, class Op>
+template <class Iter, class Sentinel, class T, class Op>
 void
-test_reduce(Iter first, Iter last, T init, Op op, T x)
+test_reduce(Iter first, Sentinel last, T init, Op op, T x)
 {
     BOOST_CHECK(ba::reduce(first, last, init, op) == x);
 }
 
-template <class Iter, class T, class Op>
+template <class Iter, class Sentinel, class T, class Op>
 void
-test_reduce(Iter first, Iter last, Op op, T x)
+test_reduce(Iter first, Sentinel last, Op op, T x)
 {
     BOOST_CHECK(ba::reduce(first, last, op) == x);
 }
 
-template <class Iter, class T>
+template <class Iter, class Sentinel, class T>
 void
-test_reduce(Iter first, Iter last, T x)
+test_reduce(Iter first, Sentinel last, T x)
 {
     BOOST_CHECK(ba::reduce(first, last) == x);
 }
@@ -55,6 +55,7 @@ test_init_op()
     test_reduce(Iter(ia), Iter(ia+2), 3, std::multiplies<int>(), 6);
     test_reduce(Iter(ia), Iter(ia+sa), 0, std::plus<int>(), 21);
     test_reduce(Iter(ia), Iter(ia+sa), 4, std::multiplies<int>(), 2880);
+    test_reduce(Iter(ia), IteratorSentinel<Iter>(Iter(ia+sa)), 4, std::multiplies<int>(), 2880);
 }
 
 void test_reduce_init_op()
@@ -87,6 +88,7 @@ test_init()
     test_reduce(Iter(ia), Iter(ia+2), 3, 6);
     test_reduce(Iter(ia), Iter(ia+sa), 0, 21);
     test_reduce(Iter(ia), Iter(ia+sa), 4, 25);
+    test_reduce(Iter(ia), IteratorSentinel<Iter>(Iter(ia+sa)), 4, std::plus<int>(), 25); //fixme
 }
 
 void test_reduce_init()
@@ -109,6 +111,7 @@ test()
     test_reduce(Iter(ia), Iter(ia+1), 1);
     test_reduce(Iter(ia), Iter(ia+2), 3);
     test_reduce(Iter(ia), Iter(ia+sa), 21);
+//fixme    test_reduce(Iter(ia), IteratorSentinel<Iter>(Iter(ia+sa)), 21);
 }
 
 void test_reduce()

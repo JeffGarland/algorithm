@@ -22,10 +22,9 @@
 
 namespace boost { namespace algorithm {
 
-template<class InputIterator, class T, class BinaryOperation>
-T reduce(InputIterator first, InputIterator last, T init, BinaryOperation bOp)
+template<class InputIterator, class Sentinel, class T, class BinaryOperation>
+T reduce(InputIterator first, Sentinel last, T init, BinaryOperation bOp)
 {
-    ;
     for (; first != last; ++first)
         init = bOp(init, *first);
     return init;
