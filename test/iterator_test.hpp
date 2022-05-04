@@ -319,14 +319,14 @@ public:
 
 template <typename Iterator>
 BOOST_CXX14_CONSTEXPR inline bool
-operator==(const IteratorSentinel<Iterator>& x, const Iterator& y)
+operator==(const Iterator& x, const IteratorSentinel<Iterator>& y)
 {
-  return x.equal( y );
+  return y.equal( x );
 }
 
 template <typename Iterator>
 BOOST_CXX14_CONSTEXPR inline bool
-operator!=(const IteratorSentinel<Iterator>& x, const Iterator& y)
+operator!=(const Iterator& x, const IteratorSentinel<Iterator>& y)
 {
     return !(x == y);
 }
